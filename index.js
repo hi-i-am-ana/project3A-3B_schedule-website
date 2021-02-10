@@ -17,12 +17,12 @@ app.get('/', (req, res) => res.render('content_message', {message: 'Welcome to o
 app.get('/users', (req, res) => res.render('content_users', {users: data.users}));
 
 // Get list of schedules
-// TODO: check that user exist
 app.get('/schedules', (req, res) => res.render('content_schedules', {schedules: data.schedules}));
 
 // TODO: Do we need to send status also?
 // Get user info
-app.get('/users/:id', (req, res) => res.render('content_user', {user: data.users[req.params.id]}));
+// TODO: check that user exist
+app.get('/users/:id(\\d+)', (req, res) => res.render('content_user', {user: data.users[req.params.id]}));
 
 // Get user schedules
 // TODO: check that user exist
@@ -31,7 +31,12 @@ app.get('/users/:id/schedules/', (req, res) => {
     res.render('content_user_schedules', {userSchedules: userSchedules});
 });
 
-// Step 4 : Create routes to post data
+// Display form for new user
+app.get('/users/new', (req, res) => res.render('content_new_user'));
+
+// Display form for new schedule
+app.get('/schedules/new', (req, res) => res.render('content_new_schedule', {users: data.users}));
+
 // Post new schedule
 // TODO: Or req.body???
 // TODO: Check if user doesn't exist?
