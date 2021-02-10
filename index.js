@@ -5,10 +5,14 @@ const crypto = require('crypto');
 const app = express();
 const PORT = process.env.port || 3000;
 
+// Settings to use templates
+app.set('views', './views');
+app.set('view engine', 'pug');
+
 // Step 2 : Create the first routes to return all the information
 // Welcome message
 // TODO: Research (next)
-app.get('/', (req, res, next) => res.send('Welcome to our schedule website'));
+app.get('/', (req, res, next) => res.render('index', {title: 'mr.coffee schedule website', message: 'Welcome to our schedule website'}));
 
 // Get list of users
 app.get('/users', (req, res, next) => res.send(data.users));
