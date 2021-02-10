@@ -9,33 +9,33 @@ const PORT = process.env.port || 3000;
 app.set('views', './views');
 app.set('view engine', 'pug');
 
-// Step 2 : Create the first routes to return all the information
-// Welcome message
+// Display welcome message (home route)
 // TODO: Research (next)
-app.get('/', (req, res, next) => res.render('index', {title: 'mr.coffee schedule website', message: 'Welcome to our schedule website'}));
+app.get('/', (req, res) => res.render('content_message', {message: 'Welcome to our schedule website'}));
 
 // Get list of users
-app.get('/users', (req, res, next) => res.send(data.users));
+app.get('/users', (req, res) => res.render('content_users', {users: data.users}));
 
 // Get list of schedules
-app.get('/schedules', (req, res, next) => res.send(data.schedules));
+// TODO: check that user exist
+app.get('/schedules', (req, res) => res.render('content_schedules', {schedules: data.schedules}));
 
-// Step 3 : Create parameterized routes
 // TODO: Do we need to send status also?
 // Get user info
-app.get('/users/:id', (req, res, next) => res.send(data.users[req.params.id]))
+app.get('/users/:id', (req, res) => res.render('content_user', {user: data.users[req.params.id]}));
 
 // Get user schedules
-app.get('/users/:id/schedules/', (req, res, next) => {
-    const userSchedule = data.schedules.filter(schedule => schedule['user_id'] === Number(req.params.id));
-    res.send(userSchedule);
+// TODO: check that user exist
+app.get('/users/:id/schedules/', (req, res) => {
+    const userSchedules = data.schedules.filter(schedule => schedule['user_id'] === Number(req.params.id));
+    res.render('content_user_schedules', {userSchedules: userSchedules});
 });
 
 // Step 4 : Create routes to post data
 // Post new schedule
 // TODO: Or req.body???
 // TODO: Check if user doesn't exist?
-app.post('/schedules', (req, res, next) => {
+app.post('/schedules', (req, res) => {
     const newSchedule = {
         'user_id': Number(req.query.user_id),
         'day': Number(req.query.day),
@@ -47,7 +47,7 @@ app.post('/schedules', (req, res, next) => {
 });
 
 // Post new user
-app.post('/users', (req, res, next) => {
+app.post('/users', (req, res) => {
     // TODO: Research
     const encriptedPassword = crypto.createHash('sha256').update(req.query.password).digest('base64');
     console.log(encriptedPassword)
