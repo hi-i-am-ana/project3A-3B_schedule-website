@@ -5,56 +5,67 @@ const crypto = require('crypto');
 const app = express();
 const PORT = process.env.port || 3000;
 
-// Step 2 : Create the first routes to return all the information
-// Welcome message
+// TODO: From express documentation (http://expressjs.com/en/4x/api.html#req.body) - research
+app.use(express.json()) // for parsing application/json
+app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+
+// Settings to use templates
+app.set('views', './views');
+app.set('view engine', 'pug');
+
+// Display welcome message (home route)
 // TODO: Research (next)
-app.get('/', (req, res, next) => res.send('Welcome to our schedule website'));
+app.get('/', (req, res) => res.render('content_message', {message: 'Welcome to our schedule website'}));
 
 // Get list of users
-app.get('/users', (req, res, next) => res.send(data.users));
+app.get('/users', (req, res) => res.render('content_users', {users: data.users}));
 
 // Get list of schedules
-app.get('/schedules', (req, res, next) => res.send(data.schedules));
+app.get('/schedules', (req, res) => res.render('content_schedules', {schedules: data.schedules}));
 
-// Step 3 : Create parameterized routes
 // TODO: Do we need to send status also?
 // Get user info
-app.get('/users/:id', (req, res, next) => res.send(data.users[req.params.id]))
+// TODO: check that user exist
+app.get('/users/:id(\\d+)', (req, res) => res.render('content_user', {user: data.users[req.params.id]}));
 
 // Get user schedules
-app.get('/users/:id/schedules/', (req, res, next) => {
-    const userSchedule = data.schedules.filter(schedule => schedule['user_id'] === Number(req.params.id));
-    res.send(userSchedule);
+// TODO: check that user exist
+app.get('/users/:id/schedules/', (req, res) => {
+    const userSchedules = data.schedules.filter(schedule => schedule['user_id'] === Number(req.params.id));
+    res.render('content_user_schedules', {userSchedules: userSchedules});
 });
 
-// Step 4 : Create routes to post data
+// Display form for new user
+app.get('/users/new', (req, res) => res.render('content_new_user'));
+
+// Display form for new schedule
+app.get('/schedules/new', (req, res) => res.render('content_new_schedule', {users: data.users}));
+
 // Post new schedule
-// TODO: Or req.body???
 // TODO: Check if user doesn't exist?
-app.post('/schedules', (req, res, next) => {
+app.post('/schedules', (req, res) => {
     const newSchedule = {
-        'user_id': Number(req.query.user_id),
-        'day': Number(req.query.day),
-        'start_at': req.query.start_at,
-        'end_at': req.query.end_at
+        'user_id': Number(req.body.user_id),
+        'day': Number(req.body.day),
+        'start_at': req.body.start_at,
+        'end_at': req.body.end_at
     };
     data.schedules.push(newSchedule);
-    res.send(newSchedule);
+    res.render('content_schedules', {schedules: data.schedules});
 });
 
 // Post new user
-app.post('/users', (req, res, next) => {
-    // TODO: Research
-    const encriptedPassword = crypto.createHash('sha256').update(req.query.password).digest('base64');
-    console.log(encriptedPassword)
+app.post('/users', (req, res) => {
+    // TODO: Research https://nodejs.org/en/knowledge/cryptography/how-to-use-crypto-module/
+    const encriptedPassword = crypto.createHash('sha256').update(req.body.password).digest('base64');
     const newUser = {
-        'firstname': req.query.firstname,
-        'lastname': req.query.lastname,
-        'email': req.query.email,
+        'firstname': req.body.firstname,
+        'lastname': req.body.lastname,
+        'email': req.body.email,
         'password': encriptedPassword
     };
     data.users.push(newUser);
-    res.send(newUser);
+    res.render('content_users', {users: data.users});
 });
 
 app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`))

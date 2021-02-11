@@ -1,0 +1,18 @@
+doctype html
+html
+  head
+    // TODO: Research why link is not working
+    // link(rel='stylesheet', href='../index.css')
+    style
+      include ../index.css
+    title mr.coffee schedule website
+  body
+    header
+      h1 mr.coffee schedule website
+      a(class='button', href='/users/new') Add new user
+      a(class='button', href='/schedules/new') Add new schedule
+    main
+      block content
+    footer
+    script
+      // include script.js
