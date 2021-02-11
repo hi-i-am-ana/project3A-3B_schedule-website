@@ -2,15 +2,15 @@ extends layout.pug
 
 block content
   form(action="/schedules" method='post')
-    label(for='user') User *
-    select(id='user', name='user', required)
-      option(disabled, selected, value="") Select user...
+    label(for='user_id') User *
+    select(id='user_id', name='user_id', required)
+      option(disabled, selected, value='') Select user...
       each item, index in users
         option(value=index)= `${item.firstname} ${item.lastname}`
 
     label(for='day') Day *
     select(id='day', name='day', required)
-      option(disabled, selected, value="") Select day...
+      option(disabled, selected, value='') Select day...
       option(value='1') Monday
       option(value='2') Tuesday
       option(value='3') Wednesday
@@ -19,18 +19,18 @@ block content
       option(value='6') Saturday
       option(value='7') Sunday
 
-    label(for='start') Start time *
-    select(id='start', name='start', required)
-      option(disabled, selected, value="") Select start time...
+    label(for='start_at') Start time *
+    select(id='start_at', name='start_at', required)
+      option(disabled, selected, value='') Select start time...
       - for (let x = 8; x <= 11; x++)
         option(value=`${x}AM`)= `${x}am`
       option(value='12PM') 12pm
       - for (let x = 1; x <= 9; x++)
         option(value=`${x}PM`)= `${x}pm`
 
-    label(for='end') End time *
-    select(id='end', name='end', required)
-      option(disabled, selected, value="") Select end time...
+    label(for='end_at') End time *
+    select(id='end_at', name='end_at', required)
+      option(disabled, selected, value='') Select end time...
       - for (let x = 8; x <= 11; x++)
         option(value=`${x}AM`)= `${x}am`
       option(value='12PM') 12pm
