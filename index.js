@@ -22,8 +22,8 @@ app.set('views', './views');
 app.set('view engine', 'pug');
 
 // Display welcome message (home route)
-// TODO: Research argument next in (rq, res, next)
-app.get('/', (req, res) => res.render('content_home', { message: 'Welcome to our schedule website' }));
+// TODO: Research next in (rq, res, next)
+app.get('/', (req, res) => res.render('content_home', { message: 'Welcome to our schedule website', users: data.users }));
 
 // Get list of users
 app.get('/users', (req, res) => res.render('content_users', { users: data.users }));
@@ -31,13 +31,12 @@ app.get('/users', (req, res) => res.render('content_users', { users: data.users 
 // Get list of schedules
 app.get('/schedules', (req, res) => res.render('content_schedules', { schedules: data.schedules, users: data.users }));
 
-// TODO: Do we need to send status also?
 // Get user info
-// TODO: check that user exists
+// TODO: Check if user exists
 app.get('/users/:id(\\d+)', (req, res) => res.render('content_user', { user: data.users[req.params.id] }));
 
 // Get user schedules
-// TODO: check that user exists
+// TODO: Check if user exists
 app.get('/users/:id/schedules/', (req, res) => {
   const userSchedules = data.schedules.filter(schedule => schedule.user_id === Number(req.params.id));
   const firstname = data.users[req.params.id].firstname;
@@ -53,7 +52,6 @@ app.get('/users/new', (req, res) => res.render('content_new_user'));
 app.get('/schedules/new', (req, res) => res.render('content_new_schedule', { users: data.users }));
 
 // Post new schedule
-// TODO: Check if user doesn't exist
 app.post('/schedules', (req, res) => {
   const newSchedule = {
     'user_id': Number(req.body.user_id),
@@ -67,6 +65,10 @@ app.post('/schedules', (req, res) => {
 
 // Post new user
 app.post('/users', (req, res) => {
+  // TODO: Check if email already exists in data.users
+  // if (data.users.some(user => user.email === req.body.email)) {
+  //   res.render('content_new_user')
+  // }
   // TODO: Research https://nodejs.org/en/knowledge/cryptography/how-to-use-crypto-module/
   const encriptedPassword = crypto.createHash('sha256').update(req.body.password).digest('hex');
   const newUser = {

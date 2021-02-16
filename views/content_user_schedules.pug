@@ -1,12 +1,12 @@
 extends layout.pug
 
 block content
-  h2 User's schedule
-  div(class="table")
-    div(class="table-title " id="table-title-first") User
+  h2 User schedule
+  div(class="table schedule-table")
+    div(class="table-title") User
     div(class="table-title") Day
     div(class="table-title") Start time
-    div(class="table-title" id="table-title-last") End time
+    div(class="table-title") End time
     each schedule in userSchedules
       div(class="table-field")= user
       div(class="table-field")= schedule.day

@@ -48,7 +48,7 @@ form.onsubmit = (event) => {
     setInvalid(emailInvalidAlert, email);
   };
 
-  // Validate start time (must be not empty)
+  // Validate start time (must be entered)
   if (!inputNotEmpty(passwordValue)) {
     setInvalid(passwordEmptyAlert, password);
   };

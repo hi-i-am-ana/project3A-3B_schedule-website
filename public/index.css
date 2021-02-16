@@ -21,11 +21,7 @@ body {
   width: 80%;
   margin: auto;
   min-height: calc(100vh - 10rem);
-  background: rgba(255, 255, 255, 0.25);
   box-shadow: 0 8px 32px 0 rgba(15, 32, 16, 0.37);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 main {
@@ -41,6 +37,12 @@ a {
 h1, h2 {
   margin-bottom: 3rem;
   text-align: center;
+}
+
+hr {
+  height: 1px;
+  background-color: black;
+  margin-bottom: 2rem;
 }
 
 nav {
@@ -64,7 +66,8 @@ nav > a:hover {
 }
 
 .actions-container {
-  margin-left: 10rem;
+  width: 60%;
+  margin: auto;
 }
 
 .actions-container > ul > li {
@@ -75,16 +78,10 @@ nav > a:hover {
 .table {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  /* align-items: center; */
   width: 80%;
   margin: auto;
   box-shadow: 0 8px 32px 0 rgba(15, 32, 16, 0.37);
-}
-
-.table-title, .table-field {
-  width: 25%;
-  padding: 0.5rem;
-  word-wrap: break-word;
 }
 
 .table-title {
@@ -94,6 +91,43 @@ nav > a:hover {
   font-weight: 900;
   border-bottom: 1px solid lightgrey;
   text-align: center;
+}
+
+.table-title, .table-field {
+  padding: 0.5rem;
+}
+
+.schedule-table > .table-title, .schedule-table > .table-field {
+  width: 25%;
+  text-align: center;
+}
+
+/* 1st and then every 4th child with .table-field */
+.schedule-table > .table-field:nth-child(4n+1) {
+  text-align: left;
+  padding-left: 2rem;
+}
+
+.user-table > .table-field {
+  padding-left: 2rem;
+}
+
+/* 1st and then every 4th child
+2nd and then every 4th child */
+.user-table > :nth-child(4n+1), .user-table :nth-child(4n+2) {
+  width: 15%;
+}
+
+/* 3d and then every 4th child */
+.user-table > :nth-child(4n+3) {
+  width: 30%;
+  word-wrap: break-word;
+}
+
+/* every 4th child */
+.user-table > :nth-child(4n) {
+  width: 40%;
+  word-wrap: break-word;
 }
 
 form {

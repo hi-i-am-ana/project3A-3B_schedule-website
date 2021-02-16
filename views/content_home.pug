@@ -9,11 +9,22 @@ block content
         a(href="/users") Display all users
       li
         a(href="/schedules") Display all schedules
+      hr
       li
-        a(href="/users/0") Display user info
+        fieldset
+          select(class="form-field home-page-field" id="user_id" name="user_id")
+            option(disabled selected value="") Select a user...
+            each user, id in users
+              option(value= id)= `${user.firstname} ${user.lastname}`
+          span(class="tooltip-form-alert" id="user-id-empty-alert") Please select a user
       li
-        a(href="/users/0/schedules") Display user's schedule
+        a(id="user-info-link" href="") Display user info
+      li
+        a(id="user-schedule-link" href="") Display user schedule
+      hr
       li
         a(href="/users/new") Add new user
       li
         a(href="/schedules/new") Add new schedule
+
+  script(src="/static/home.js" defer)
