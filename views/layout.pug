@@ -1,15 +1,13 @@
 doctype html
 html
   head
-    link(rel='stylesheet', href='/static/index.css')
-    title mr.coffee schedule website
+    link(rel="stylesheet" href="/static/index.css")
+    title Mr.Coffee Schedule
   body
-    header
-      h1 mr.coffee schedule website
-      a(class='button', href='/users/new') Add new user
-      a(class='button', href='/schedules/new') Add new schedule
-    main
-      block content
-    footer
-    script
-      // include script.js
+    div(class="body-container")
+      header
+        nav
+          img(class="nav-logo" src="/static/assets/full_logo_dark.png" alt="mr.coffee white logo")
+          a(href="/") Home
+      main
+        block content

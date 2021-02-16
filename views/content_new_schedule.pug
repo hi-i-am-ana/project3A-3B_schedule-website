@@ -1,12 +1,13 @@
 extends layout.pug
 
 block content
+  h2 Add new schedule
   form(action="/schedules" method='post')
     label(for='user_id') User *
     select(id='user_id', name='user_id', required)
       option(disabled, selected, value='') Select user...
-      each item, index in users
-        option(value=index)= `${item.firstname} ${item.lastname}`
+      each user, id in users
+        option(value=id)= `${user.firstname} ${user.lastname}`
 
     label(for='day') Day *
     select(id='day', name='day', required)
@@ -38,3 +39,5 @@ block content
         option(value=`${x}PM`)= `${x}pm`
 
     button(type='submit') Save
+  
+  script(src="/static/new_schedule.js" defer)

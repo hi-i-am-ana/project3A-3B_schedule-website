@@ -1,0 +1,19 @@
+extends layout.pug
+
+block content
+  h1= message
+  h2 Here you can:
+  div(class="actions-container")
+    ul
+      li
+        a(href="/users") Display all users
+      li
+        a(href="/schedules") Display all schedules
+      li
+        a(href="/users/0") Display user info
+      li
+        a(href="/users/0/schedules") Display user's schedule
+      li
+        a(href="/users/new") Add new user
+      li
+        a(href="/schedules/new") Add new schedule

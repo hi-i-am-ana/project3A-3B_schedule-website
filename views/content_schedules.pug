@@ -1,9 +1,14 @@
 extends layout.pug
 
 block content
-  each item in schedules
-    div.info
-      p= `user id: ${item['user_id']}`
-      p= `day: ${item['day']}`
-      p= `start time: ${item['start_at']}`
-      p= `end time: ${item['end_at']}`
+  h2 Mr.Coffee schedule
+  div(class="table")
+    div(class="table-title " id="table-title-first") User
+    div(class="table-title") Day
+    div(class="table-title") Start time
+    div(class="table-title" id="table-title-last") End time
+    each schedule in schedules
+      div(class="table-field")= `${users[schedule.user_id].firstname} ${users[schedule.user_id].lastname}`
+      div(class="table-field")= schedule.day
+      div(class="table-field")= schedule.start_at
+      div(class="table-field")= schedule.end_at

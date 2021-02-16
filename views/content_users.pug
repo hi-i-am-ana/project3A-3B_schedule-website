@@ -1,9 +1,14 @@
 extends layout.pug
 
 block content
-  each item in users
-    div.info
-      p= `first name: ${item['firstname']}`
-      p= `last name: ${item['lastname']}`
-      p= `email: ${item['email']}`
-      p= `password: ${item['password']}`
+  h2 Mr.Coffee users
+  div(class="table")
+    div(class="table-title " id="table-title-first") First name
+    div(class="table-title") Last name
+    div(class="table-title") Email name
+    div(class="table-title" id="table-title-last") Password
+    each user in users
+      div(class="table-field")= user.firstname
+      div(class="table-field")= user.lastname
+      div(class="table-field")= user.email
+      div(class="table-field")= user.password

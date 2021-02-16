@@ -23,13 +23,13 @@ app.set('view engine', 'pug');
 
 // Display welcome message (home route)
 // TODO: Research argument next in (rq, res, next)
-app.get('/', (req, res) => res.render('content_message', { message: 'Welcome to our schedule website' }));
+app.get('/', (req, res) => res.render('content_home', { message: 'Welcome to our schedule website' }));
 
 // Get list of users
 app.get('/users', (req, res) => res.render('content_users', { users: data.users }));
 
 // Get list of schedules
-app.get('/schedules', (req, res) => res.render('content_schedules', { schedules: data.schedules }));
+app.get('/schedules', (req, res) => res.render('content_schedules', { schedules: data.schedules, users: data.users }));
 
 // TODO: Do we need to send status also?
 // Get user info
@@ -40,7 +40,10 @@ app.get('/users/:id(\\d+)', (req, res) => res.render('content_user', { user: dat
 // TODO: check that user exists
 app.get('/users/:id/schedules/', (req, res) => {
   const userSchedules = data.schedules.filter(schedule => schedule.user_id === Number(req.params.id));
-  res.render('content_user_schedules', { userSchedules: userSchedules });
+  const firstname = data.users[req.params.id].firstname;
+  const lastname = data.users[req.params.id].lastname;
+  const user = `${firstname} ${lastname}`;
+  res.render('content_user_schedules', { userSchedules: userSchedules, user: user });
 });
 
 // Display form for new user
@@ -59,7 +62,7 @@ app.post('/schedules', (req, res) => {
     'end_at': req.body.end_at
   };
   data.schedules.push(newSchedule);
-  res.render('content_schedules', { schedules: data.schedules });
+  res.redirect('/schedules');
 });
 
 // Post new user
@@ -73,7 +76,7 @@ app.post('/users', (req, res) => {
     'password': encriptedPassword
   };
   data.users.push(newUser);
-  res.render('content_users', { users: data.users });
+  res.redirect('/users');
 });
 
 app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`))
