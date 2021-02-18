@@ -1,17 +1,28 @@
-extends layout.pug
+extends ../layout.pug
 
 block content
   h2 Add new user
+  - if (email !== undefined)
+    p(id="email-exists-alert" class="email-exists-alert display-block")= `User with email ${email} already exists. Please try again`
+  - else
+    p(id="email-exists-alert" class="email-exists-alert")= `User with email ${email} already exists. Please try again`
+  
   form(id="form" action="/users" method="post" novalidate)
     fieldset
       label(for="firstname") First name *
-      input(class="form-field" id="firstname" type="text" name="firstname" placeholder="Your first name...")
+      - if (firstname !== undefined)
+        input(class="form-field" id="firstname" type="text" name="firstname" placeholder="Your first name..." value= `${firstname}`)
+      - else
+        input(class="form-field" id="firstname" type="text" name="firstname" placeholder="Your first name...")
       span(class="tooltip-form-alert" id="firstname-empty-alert") Please enter your first name
       span(class="tooltip-form-alert" id="firstname-invalid-alert") First name has invalid format
     
     fieldset  
       label(for="lastname") Last name *
-      input(class="form-field" id="lastname" type="text" name="lastname" placeholder="Your last name...")
+      - if (lastname !== undefined)
+        input(class="form-field" id="lastname" type="text" name="lastname" placeholder="Your last name..." value= `${lastname}`)
+      - else
+        input(class="form-field" id="lastname" type="text" name="lastname" placeholder="Your last name...")
       span(class="tooltip-form-alert" id="lastname-empty-alert") Please enter your last name
       span(class="tooltip-form-alert" id="lastname-invalid-alert") Last name has invalid format
     

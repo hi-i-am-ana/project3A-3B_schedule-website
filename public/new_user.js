@@ -15,6 +15,8 @@ const emailEmptyAlert = document.getElementById('email-empty-alert');
 const emailInvalidAlert = document.getElementById('email-invalid-alert');
 const passwordEmptyAlert = document.getElementById('password-empty-alert');
 
+const emailExistsAlert = document.getElementById('email-exists-alert');
+
 // Create variable to save validation status
 let validForm;
 
@@ -56,6 +58,19 @@ form.onsubmit = (event) => {
   if (!validForm) {
     event.preventDefault();
   };
+};
+
+firstname.onfocus = (event) => {
+  emailExistsAlert.classList.remove('display-block');
+};
+lastname.onfocus = (event) => {
+  emailExistsAlert.classList.remove('display-block');
+};
+email.onfocus = (event) => {
+  emailExistsAlert.classList.remove('display-block');
+};
+password.onfocus = (event) => {
+  emailExistsAlert.classList.remove('display-block');
 };
 
 const inputNotEmpty = (inputValue) => inputValue !== '';

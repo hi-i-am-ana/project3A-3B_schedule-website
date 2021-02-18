@@ -24,12 +24,6 @@ body {
   box-shadow: 0 8px 32px 0 rgba(15, 32, 16, 0.37);
 }
 
-main {
-  width: 90%;
-  margin: auto;
-  padding: 3rem 0;
-}
-
 a {
   color: inherit;
 }
@@ -65,6 +59,13 @@ nav > a:hover {
   color: grey;
 }
 
+main {
+  width: 90%;
+  margin: auto;
+  padding: 3rem 0;
+}
+
+/* home page */
 .actions-container {
   width: 60%;
   margin: auto;
@@ -74,11 +75,12 @@ nav > a:hover {
   margin-bottom: 2rem;
   list-style-type: none;
 }
+/* end home page */
 
+/* tables: users, schedules, user, user schedules */
 .table {
   display: flex;
   flex-wrap: wrap;
-  /* align-items: center; */
   width: 80%;
   margin: auto;
   box-shadow: 0 8px 32px 0 rgba(15, 32, 16, 0.37);
@@ -88,8 +90,8 @@ nav > a:hover {
   position: sticky;
   top: 0;
   background-color: white;
-  font-weight: 900;
   border-bottom: 1px solid lightgrey;
+  font-weight: 900;
   text-align: center;
 }
 
@@ -104,16 +106,15 @@ nav > a:hover {
 
 /* 1st and then every 4th child with .table-field */
 .schedule-table > .table-field:nth-child(4n+1) {
-  text-align: left;
   padding-left: 2rem;
+  text-align: left;
 }
 
 .user-table > .table-field {
   padding-left: 2rem;
 }
 
-/* 1st and then every 4th child
-2nd and then every 4th child */
+/* 1st and then every 4th child, 2nd and then every 4th child */
 .user-table > :nth-child(4n+1), .user-table :nth-child(4n+2) {
   width: 15%;
 }
@@ -128,6 +129,19 @@ nav > a:hover {
 .user-table > :nth-child(4n) {
   width: 40%;
   word-wrap: break-word;
+}
+/* end tables: users, schedules, user, user schedules */
+
+/* forms: user, user schedules */
+.email-exists-alert {
+  display: none;
+  margin-bottom: 2rem;
+  color: red;
+  text-align: center;
+}
+
+.display-block {
+  display: block;
 }
 
 form {
@@ -202,6 +216,7 @@ button:focus {
   border-style: solid;
   border-color: #eaeaea transparent transparent transparent;
 }
+/* end forms: user, user schedules */
 
 /* media 768 */
 @media screen and (max-width: 768px) {
