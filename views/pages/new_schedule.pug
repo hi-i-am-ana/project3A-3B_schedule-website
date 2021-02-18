@@ -1,0 +1,52 @@
+extends ../layout.pug
+
+block content
+  h2 Add new schedule
+  form(id="form" action="/schedules" method="post" novalidate)
+    fieldset
+      label(for="user_id") User *
+      select(class="form-field" id="user_id" name="user_id")
+        option(disabled selected value="") Select a user...
+        each user, id in users
+          option(value= id)= `${user.firstname} ${user.lastname}`
+      span(class="tooltip-form-alert" id="user-id-empty-alert") Please select a user
+
+    fieldset
+      label(for="day") Day *
+      select(class="form-field" id="day" name="day")
+        option(disabled selected value="") Select a day...
+        option(value="1") Monday
+        option(value="2") Tuesday
+        option(value="3") Wednesday
+        option(value="4") Thursday
+        option(value="5") Friday
+        option(value="6") Saturday
+        option(value="7") Sunday
+      span(class="tooltip-form-alert" id="day-empty-alert") Please select a day
+
+    fieldset
+      label(for="start_at") Start time *
+      select(class="form-field" id="start_at" name="start_at")
+        option(disabled, selected, value='') Select start time...
+        - for (let x = 8; x <= 11; x++)
+          option(value=`${x}AM`)= `${x}am`
+        option(value='12PM') 12pm
+        - for (let x = 1; x <= 9; x++)
+          option(value=`${x}PM`)= `${x}pm`
+      span(class="tooltip-form-alert" id="start-at-empty-alert") Please select start time
+
+    fieldset
+      label(for='end_at') End time *
+      select(class="form-field" id='end_at', name='end_at')
+        option(disabled, selected, value='') Select end time...
+        - for (let x = 8; x <= 11; x++)
+          option(value=`${x}AM`)= `${x}am`
+        option(value='12PM') 12pm
+        - for (let x = 1; x <= 9; x++)
+          option(value=`${x}PM`)= `${x}pm`
+      span(class="tooltip-form-alert" id="end-at-empty-alert") Please select end time
+      span(class="tooltip-form-alert" id="time-invalid-alert") End time must be later than start time
+
+    button(type='submit') Save
+  
+  script(src="/static/new_schedule.js" defer)

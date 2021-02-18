@@ -1,0 +1,14 @@
+extends ../layout.pug
+
+block content
+  h2 Mr.Coffee users
+  div(class="table user-table")
+    div(class="table-title") First name
+    div(class="table-title") Last name
+    div(class="table-title") Email name
+    div(class="table-title") Password
+    each user in users
+      div(class="table-field")= user.firstname
+      div(class="table-field")= user.lastname
+      div(class="table-field")= user.email
+      div(class="table-field")= user.password

@@ -1,0 +1,42 @@
+extends ../layout.pug
+
+block content
+  h2 Add new user
+  - if (email !== undefined)
+    p(id="email-exists-alert" class="email-exists-alert display-block")= `User with email ${email} already exists. Please try again`
+  - else
+    p(id="email-exists-alert" class="email-exists-alert")= `User with email ${email} already exists. Please try again`
+  
+  form(id="form" action="/users" method="post" novalidate)
+    fieldset
+      label(for="firstname") First name *
+      - if (firstname !== undefined)
+        input(class="form-field" id="firstname" type="text" name="firstname" placeholder="Your first name..." value= `${firstname}`)
+      - else
+        input(class="form-field" id="firstname" type="text" name="firstname" placeholder="Your first name...")
+      span(class="tooltip-form-alert" id="firstname-empty-alert") Please enter your first name
+      span(class="tooltip-form-alert" id="firstname-invalid-alert") First name has invalid format
+    
+    fieldset  
+      label(for="lastname") Last name *
+      - if (lastname !== undefined)
+        input(class="form-field" id="lastname" type="text" name="lastname" placeholder="Your last name..." value= `${lastname}`)
+      - else
+        input(class="form-field" id="lastname" type="text" name="lastname" placeholder="Your last name...")
+      span(class="tooltip-form-alert" id="lastname-empty-alert") Please enter your last name
+      span(class="tooltip-form-alert" id="lastname-invalid-alert") Last name has invalid format
+    
+    fieldset
+      label(for="email") Email *
+      input(class="form-field" id="email" type="email" name="email" placeholder="Your email...")
+      span(class="tooltip-form-alert" id="email-empty-alert") Please enter your email
+      span(class="tooltip-form-alert" id="email-invalid-alert") Email has invalid format
+
+    fieldset  
+      label(for="password") Password *
+      input(class="form-field" id="password" type="password" name="password" placeholder="Your password...")
+      span(class="tooltip-form-alert" id="password-empty-alert") Please enter your password
+    
+    button(type="submit") Save
+
+  script(src="/static/new_user.js" defer)
